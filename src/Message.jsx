@@ -66,22 +66,35 @@ class MessageNode extends Component {
 
         const _renderByType_text = () => {
 
+            const textByType = {
+                bold: (
+                    <b>
+                        { params.content }
+                        { childNodes }
+                    </b>
+                ),
+                default: (
+                    <>
+                        { params.content }
+                        { childNodes }
+                    </>
+                ),
+                orderData: (
+                    <>
+                        { params.content }
+                        <br/>
+                        { childNodes }
+                    </>
+                )
+            }
+
             switch(params.style) {
                 case 'bold':
-                    return (
-                        <b>
-                            { params.content }
-                            { childNodes }
-                        </b>
-                    );
+                    return textByType.bold;
+                case 'order_data':
+                    return textByType.orderData;
                 default:
-                    return (
-                        <>
-                           { params.content }
-                           { childNodes }
-                        </>
-                    )
-
+                    return textByType.default;
             }
 
         };
@@ -92,6 +105,21 @@ class MessageNode extends Component {
             )
         };
 
+        const _renderByType_button = () => {
+            const buttonByType = {
+                default: (
+                    <a href={params.url} target='_blank' className="btn btn-small-size btn-blue-no-fill" >{params.content}</a>
+                )
+            };
+
+            switch (params.style) {
+                case 'border_button':
+                    return buttonByType.default;
+                default:
+                    return buttonByType.default;
+            }
+        }
+
         switch (type) {
             case 'paragraph':
                 return _renderByType_paragraph();
@@ -101,6 +129,8 @@ class MessageNode extends Component {
                 return _renderByType_text();
             case 'link':
                 return _renderByType_link();
+            case 'button':
+                return _renderByType_button();
         }
     }
 
