@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { NODES } from './NODES';
 
 class MessageNode extends Component {
@@ -11,11 +11,14 @@ class MessageNode extends Component {
         this.state = {
             type,
             params,
-            children
+            children,
+            formatType: props.formatType
         }
     }
 
-    renderNodeByType({type, params, childNodes}) {
+    renderNodeByType({ childNodes }) {
+
+        const { type, params } = this.state;
 
         const _returnMarkup = node => node.markup({params, childNodes});
         
@@ -26,7 +29,9 @@ class MessageNode extends Component {
         const node = NODES.find( node => type === node.type );
 
         let nodeStyled = null;
-        const nodeStyledDefault = node.styles.find( style => style.name === 'default' );
+        const nodeStyledDefault = node.styles.find( style => 
+             style.formatType === 'desktop_default' && style.name === 'default'
+        );
 
         if ( params ) {
             nodeStyled = node.styles.find( style => style.name === params.style )
@@ -38,21 +43,24 @@ class MessageNode extends Component {
 
     }
 
-    renderNode({ type, params, children }) {
+    renderNode() {
+        
+        const { type, params, children } = this.state;
+
         const _getNodeChildren = (children) => {
             return children ? children.map( (childNode, key) => <MessageNode key={key} nodeData={childNode} />) : null;
         };
 
         const childNodes = _getNodeChildren(children);
         return (
-            this.renderNodeByType({ type, params, childNodes })
+            this.renderNodeByType({ childNodes })
         );
     }
 
     render() {
        return (
            <>
-               { this.renderNode( this.state ) }
+               { this.renderNode() }
            </>
 
        )

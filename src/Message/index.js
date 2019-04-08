@@ -13,7 +13,7 @@ class Message extends Component {
     }
 
     renderMessage() {
-        return <MessageNode nodeData={this.state.messageData} />
+        return <MessageNode nodeData={this.state.messageData} formatType={this.state.formatType} />
     }
 
     render() {

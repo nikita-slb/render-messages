@@ -25,6 +25,16 @@ export const NODES = [
                 )
             },
             {
+                formatType: 'desktop_test',
+                name: 'bold',
+                markup: ({params, childNodes}) => (
+                    <b>
+                        { params.content }
+                        { childNodes }
+                    </b>
+                )
+            },
+            {
                 formatType: 'desktop_default',
                 name: 'order_data',
                 markup: ({params, childNodes}) => (
