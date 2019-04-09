@@ -4,6 +4,7 @@
 .idea
 *.sublime-project
 *.sublime-workspace
+package-lock.json
 
 # dependencies
 /node_modules
