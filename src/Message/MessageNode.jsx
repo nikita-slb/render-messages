@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { NODES } from './NODES';
 
+const DEFAULTS = {
+    STYLE_TYPES: {
+        formatType: 'desktop_default',
+        styleName: 'default'
+    }
+}
+
 class MessageNode extends Component {
 
     constructor(props) {
@@ -25,8 +32,7 @@ class MessageNode extends Component {
 
         const _findStyle = node => {
             const configDefault = {
-                formatType: 'desktop_default',
-                styleName: 'default'
+                ...DEFAULTS.STYLE_TYPES
             }
             let styleName = '';
             params ? styleName = params.style : styleName = configDefault.styleName;
