@@ -10,6 +10,7 @@ class Message extends Component {
             formatType: props.formatType,
             messageData: JSON.parse(props.message)
         }
+
     }
 
     renderMessage() {
@@ -19,8 +20,6 @@ class Message extends Component {
     render() {
 
         let {message} = this.props;
-
-        //console.log(JSON.parse(message));
 
         return (
             <div className="Mess">

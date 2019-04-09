@@ -29,8 +29,10 @@ export const NODES = [
                 name: 'bold',
                 markup: ({params, childNodes}) => (
                     <b>
-                        { params.content }
-                        { childNodes }
+                        <i>
+                            { params.content }
+                            { childNodes }
+                        </i>
                     </b>
                 )
             },
