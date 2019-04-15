@@ -6,21 +6,11 @@ class Message extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            formatType: props.formatType,
-            messageData: JSON.parse(props.message)
-        }
-
-    }
-
-    renderMessage() {
-        return <MessageNode nodeData={this.state.messageData} formatType={this.state.formatType} />
+        this.messageData = JSON.parse(props.message.mobile_message);
+        console.log(this.messageData);
     }
 
     render() {
-
-        let {message} = this.props;
-
         return (
             <div className="Mess">
                 <div className="MessHeader">
@@ -30,7 +20,7 @@ class Message extends Component {
                 </div>
 
                 <div className="MessBody" >
-                    { this.renderMessage() }
+                    <MessageNode nodeData={this.messageData} formatType={this.props.formatType} />
                 </div>
             </div>
         )
