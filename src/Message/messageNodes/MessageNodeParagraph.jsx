@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class MessageNodeParagraph extends Component{
+
+    static propTypes = {
+        format: PropTypes.string,
+        params: PropTypes.object,
+        children: PropTypes.array
+    };
+
     static get styles() {
         return []
     }

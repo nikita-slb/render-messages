@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-
-/*function dd_bold(children, params) {
-    return (
-        <b>
-            {params.content}
-            {children}
-        </b>
-    )
-}*/
+import PropTypes from 'prop-types';
 
 class MessageNodeLink extends Component{
+
+    static propTypes = {
+        format: PropTypes.string,
+        params: PropTypes.object,
+        children: PropTypes.array
+    };
+
     static get styles() {
         return []
     }
@@ -30,7 +29,10 @@ class MessageNodeLink extends Component{
 
         if (!styleObj) {
             return (
-                <a href={params.url} target="_blank" >{params.content} </a>
+                <>
+                    { params.inline ? "" : <br/> }
+                    <a href={params.url} target="_blank" rel="noopener noreferrer" >{params.content} </a>
+                </>
             )
         } else {
             return styleObj.markup(children, params)

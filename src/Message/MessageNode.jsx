@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import MessageNodeParagraph from './messageNodes/MessageNodeParagraph';
 import MessageNodeText from './messageNodes/MessageNodeText';
@@ -14,6 +15,11 @@ const TYPES = {
 };
 
 class MessageNode extends Component {
+
+    static propTypes = {
+        nodeData: PropTypes.object,
+        formatType: PropTypes.string
+    };
 
     getNodeChildren() {
         const { children } = this.props.nodeData;

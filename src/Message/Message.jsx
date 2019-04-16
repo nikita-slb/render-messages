@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import MessageNode from './MessageNode.jsx'
 
 class Message extends Component {
+
+    static propTypes = {
+        message: PropTypes.object,
+        formatType: PropTypes.string
+    };
 
     constructor(props) {
         super(props);
