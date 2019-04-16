@@ -68,7 +68,7 @@ class App extends Component {
                             Messages.map((message, key) => {
 
                                 return (
-                                    <Message key={key} message={message} formatType="desktop_default" />
+                                    <Message key={key} message={message} />
                                 )
 
                             })

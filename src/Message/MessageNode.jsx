@@ -16,40 +16,37 @@ const TYPES = {
 
 class MessageNode extends Component {
 
-    static propTypes = {
-        nodeData: PropTypes.object,
-        formatType: PropTypes.string
-    };
-
     getNodeChildren() {
         const { children } = this.props.nodeData;
-        const formatType = this.props.formatType;
 
         return children ? children.map( (childNode, key) =>
-            <MessageNode key={key} formatType={formatType} nodeData={childNode} />
+            <MessageNode key={key} nodeData={childNode} />
         ) : null;
     }
 
     render() {
         const { type }  = this.props.nodeData;
         const params = this.props.nodeData.params || {};
-        const formatType = this.props.formatType;
 
         const nodeChildren = this.getNodeChildren();
 
         switch (type) {
             case TYPES.PARAGRAPH:
-                return ( <MessageNodeParagraph format={formatType} params={params} children={nodeChildren} /> );
+                return ( <MessageNodeParagraph params={params} children={nodeChildren} /> );
             case TYPES.TEXT:
-                return ( <MessageNodeText format={formatType} params={params} children={nodeChildren} /> );
+                return ( <MessageNodeText params={params} children={nodeChildren} /> );
             case TYPES.LINK:
-                return ( <MessageNodeLink format={formatType} params={params} children={nodeChildren} /> );
+                return ( <MessageNodeLink params={params} children={nodeChildren} /> );
             case TYPES.BUTTON:
-                return ( <MessageNodeButton format={formatType} params={params} children={nodeChildren} /> );
+                return ( <MessageNodeButton params={params} children={nodeChildren} /> );
             default:
                 return nodeChildren
         }
     }
 }
+
+MessageNode.propTypes = {
+    nodeData: PropTypes.object.isRequired,
+};
 
 export default MessageNode;

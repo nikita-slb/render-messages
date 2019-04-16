@@ -18,7 +18,7 @@ function markup_default(children, params, href) {
     )
 }
 
-function markup_dd_bb(children, params, href) {
+function markup_border_button(children, params, href) {
     return (
         <>
             { params.inline ? " " : <br/> }
@@ -30,7 +30,7 @@ function markup_dd_bb(children, params, href) {
     )
 }
 
-function markup_dd_nbb(children, params, href) {
+function markup_no_border_button(children, params, href) {
     return (
         <>
             { params.inline ? " " : <br/> }
@@ -44,23 +44,15 @@ function markup_dd_nbb(children, params, href) {
 
 class MessageNodeButton extends Component{
 
-    static propTypes = {
-        format: PropTypes.string,
-        params: PropTypes.object,
-        children: PropTypes.array
-    };
-
     static get styles() {
         return [
             {
-                format: 'desktop_default',
                 name: 'border_button',
-                markup: markup_dd_bb
+                markup: markup_border_button
             },
             {
-                format: 'desktop_default',
                 name: 'no_border_button',
-                markup: markup_dd_nbb
+                markup: markup_no_border_button
             }
         ]
     }
@@ -92,12 +84,11 @@ class MessageNodeButton extends Component{
     }
 
     getStyle() {
-        const { format } = this.props;
         const { style: styleName } = this.props.params;
 
         if ( MessageNodeButton.styles.length <= 0 ) return null;
 
-        return MessageNodeButton.styles.find(style => style.format === format && style.name === styleName )
+        return MessageNodeButton.styles.find(style => style.name === styleName )
     }
 
     render() {
@@ -112,5 +103,20 @@ class MessageNodeButton extends Component{
         }
     }
 }
+
+MessageNodeButton.defaultProps = {
+    children: null,
+};
+
+MessageNodeButton.propTypes = {
+    params: PropTypes.shape({
+        style: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        inline: PropTypes.bool.isRequired,
+        action: PropTypes.string.isRequired,
+        id: PropTypes.number
+    }),
+    children: PropTypes.array
+};
 
 export default MessageNodeButton;

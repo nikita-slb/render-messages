@@ -4,11 +4,6 @@ import MessageNode from './MessageNode.jsx'
 
 class Message extends Component {
 
-    static propTypes = {
-        message: PropTypes.object,
-        formatType: PropTypes.string
-    };
-
     constructor(props) {
         super(props);
 
@@ -26,13 +21,15 @@ class Message extends Component {
                 </div>
 
                 <div className="MessBody" >
-                    <MessageNode nodeData={this.messageData} formatType={this.props.formatType} />
+                    <MessageNode nodeData={this.messageData} />
                 </div>
             </div>
         )
     }
 }
 
-
+Message.propTypes = {
+    message: PropTypes.object.isRequired,
+};
 
 export default Message

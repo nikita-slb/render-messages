@@ -3,23 +3,16 @@ import PropTypes from 'prop-types';
 
 class MessageNodeParagraph extends Component{
 
-    static propTypes = {
-        format: PropTypes.string,
-        params: PropTypes.object,
-        children: PropTypes.array
-    };
-
     static get styles() {
         return []
     }
 
     getStyle() {
-        const { format } = this.props;
         const { style: styleName } = this.props.params;
 
         if ( MessageNodeParagraph.styles.length <= 0 ) return null;
 
-        return MessageNodeParagraph.styles.find( style => style.format === format && style.name === styleName )
+        return MessageNodeParagraph.styles.find( style => style.name === styleName )
     }
 
     render() {
@@ -36,5 +29,15 @@ class MessageNodeParagraph extends Component{
         }
     }
 }
+
+MessageNodeParagraph.defaultProps = {
+    params: null,
+    children: null
+};
+
+MessageNodeParagraph.propTypes = {
+    params: PropTypes.object,
+    children: PropTypes.array
+};
 
 export default MessageNodeParagraph;

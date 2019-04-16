@@ -3,12 +3,6 @@ import PropTypes from 'prop-types';
 
 class MessageNodeLink extends Component{
 
-    static propTypes = {
-        format: PropTypes.string,
-        params: PropTypes.object,
-        children: PropTypes.array
-    };
-
     static get styles() {
         return []
     }
@@ -39,5 +33,19 @@ class MessageNodeLink extends Component{
         }
     }
 }
+
+MessageNodeLink.defaultProps = {
+    children: null,
+};
+
+MessageNodeLink.propTypes = {
+    params: PropTypes.shape({
+        style: PropTypes.string,
+        content: PropTypes.string.isRequired,
+        inline: PropTypes.bool.isRequired,
+        url: PropTypes.string.isRequired
+    }),
+    children: PropTypes.array
+};
 
 export default MessageNodeLink;

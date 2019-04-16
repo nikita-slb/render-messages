@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-function markup_dd_normal(children, params) {
+function markupNormal(children, params) {
     return (
         <>
             { params.inline ? " " : <br/> }
@@ -76,41 +76,29 @@ function markup_dd_rneg(children, params) {
 
 class MessageNodeText extends Component{
 
-    static propTypes = {
-        format: PropTypes.string,
-        params: PropTypes.object,
-        children: PropTypes.array
-    };
-
     static get styles() {
         return [
             {
-                format: 'desktop_default',
                 name: 'normal',
-                markup: markup_dd_normal
+                markup: markupNormal
             },
             {
-                format: 'desktop_default',
                 name: 'bold',
                 markup: markup_dd_bold
             },
             {
-                format: 'desktop_default',
                 name: 'order_data',
                 markup: markup_dd_od
             },
             {
-                format: 'desktop_default',
                 name: 'review_neutral',
                 markup: markup_dd_rn
             },
             {
-                format: 'desktop_default',
                 name: 'review_positive',
                 markup: markup_dd_rp
             },
             {
-                format: 'desktop_default',
                 name: 'review_negative',
                 markup: markup_dd_rneg
             }
@@ -127,12 +115,11 @@ class MessageNodeText extends Component{
     }
 
     getStyle() {
-        const { format } = this.props;
         const { style: styleName } = this.props.params;
 
         if ( MessageNodeText.styles.length <= 0 ) return null;
 
-        return MessageNodeText.styles.find( style => style.format === format && style.name === styleName )
+        return MessageNodeText.styles.find( style => style.name === styleName )
     }
 
     render() {
@@ -141,11 +128,24 @@ class MessageNodeText extends Component{
         const styleObj = this.getStyle();
 
         if (!styleObj) {
-            return markup_dd_normal(children, params);
+            return markupNormal(children, params);
         } else {
             return styleObj.markup(children, this.props.params)
         }
     }
 }
+
+MessageNodeText.defaultProps = {
+    children: null
+};
+
+MessageNodeText.propTypes = {
+    params: PropTypes.shape({
+        style: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        inline: PropTypes.bool.isRequired
+    }),
+    children: PropTypes.array
+};
 
 export default MessageNodeText;
