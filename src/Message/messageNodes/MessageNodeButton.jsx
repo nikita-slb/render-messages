@@ -9,7 +9,7 @@ const ACTIONS = {
 function markup_default(children, params, href) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <a href={href}>
                 {params.content}
                 { children }
@@ -21,7 +21,7 @@ function markup_default(children, params, href) {
 function markup_dd_bb(children, params, href) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-blue-no-fill" >
                 {params.content}
                 {children}
@@ -33,7 +33,7 @@ function markup_dd_bb(children, params, href) {
 function markup_dd_nbb(children, params, href) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-link" >
                 {params.content}
                 {children}

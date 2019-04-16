@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function markup_dd_normal(children, params) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <span>
                 { params.content }
                 { children }
@@ -16,9 +16,8 @@ function markup_dd_normal(children, params) {
 function markup_dd_bold(children, params) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <b>
-                { params.inline ? "" : <br/> }
                 {params.content}
                 {children}
             </b>
@@ -30,7 +29,7 @@ function markup_dd_od(children, params) {
 
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <span className="text-size-12 gray">
                 { MessageNodeText.replaceNbsp(params.content) }
                 { children }
@@ -42,7 +41,7 @@ function markup_dd_od(children, params) {
 function markup_dd_rn(children, params) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <span className="gray">
                 { params.content }
                 { children }
@@ -54,7 +53,7 @@ function markup_dd_rn(children, params) {
 function markup_dd_rp(children, params) {
     return (
         <>
-        { params.inline ? "" : <br/> }
+        { params.inline ? " " : <br/> }
         <span className="green">
                 { params.content }
             { children }
@@ -66,7 +65,7 @@ function markup_dd_rp(children, params) {
 function markup_dd_rneg(children, params) {
     return (
         <>
-            { params.inline ? "" : <br/> }
+            { params.inline ? " " : <br/> }
             <span className="red">
                 { params.content }
                 { children }

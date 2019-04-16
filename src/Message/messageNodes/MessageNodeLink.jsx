@@ -30,7 +30,7 @@ class MessageNodeLink extends Component{
         if (!styleObj) {
             return (
                 <>
-                    { params.inline ? "" : <br/> }
+                    { params.inline ? " " : <br/> }
                     <a href={params.url} target="_blank" rel="noopener noreferrer" >{params.content} </a>
                 </>
             )
