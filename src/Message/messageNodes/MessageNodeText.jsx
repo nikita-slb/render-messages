@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { inlineMarkup } from "../helpers";
 
 function markupNormal(children, params) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <span>
                 { params.content }
                 { children }
@@ -13,10 +14,10 @@ function markupNormal(children, params) {
     )
 }
 
-function markup_dd_bold(children, params) {
+function markupBold(children, params) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <b>
                 {params.content}
                 {children}
@@ -25,11 +26,11 @@ function markup_dd_bold(children, params) {
     )
 }
 
-function markup_dd_od(children, params) {
+function markupOrderData(children, params) {
 
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <span className="text-size-12 gray">
                 { MessageNodeText.replaceNbsp(params.content) }
                 { children }
@@ -38,10 +39,10 @@ function markup_dd_od(children, params) {
     )
 }
 
-function markup_dd_rn(children, params) {
+function markupReviewNeutral(children, params) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <span className="gray">
                 { params.content }
                 { children }
@@ -50,22 +51,22 @@ function markup_dd_rn(children, params) {
     )
 }
 
-function markup_dd_rp(children, params) {
+function markupReviewPositive(children, params) {
     return (
         <>
-        { params.inline ? " " : <br/> }
-        <span className="green">
-                { params.content }
-            { children }
+            { inlineMarkup(params) }
+            <span className="green">
+                    { params.content }
+                { children }
             </span>
         </>
     )
 }
 
-function markup_dd_rneg(children, params) {
+function markupReviewNegative(children, params) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <span className="red">
                 { params.content }
                 { children }
@@ -76,33 +77,35 @@ function markup_dd_rneg(children, params) {
 
 class MessageNodeText extends Component{
 
-    static get styles() {
-        return [
+    constructor(props) {
+        super(props);
+
+        this.styles = [
             {
                 name: 'normal',
                 markup: markupNormal
             },
             {
                 name: 'bold',
-                markup: markup_dd_bold
+                markup: markupBold
             },
             {
                 name: 'order_data',
-                markup: markup_dd_od
+                markup: markupOrderData
             },
             {
                 name: 'review_neutral',
-                markup: markup_dd_rn
+                markup: markupReviewNeutral
             },
             {
                 name: 'review_positive',
-                markup: markup_dd_rp
+                markup: markupReviewPositive
             },
             {
                 name: 'review_negative',
-                markup: markup_dd_rneg
+                markup: markupReviewNegative
             }
-        ]
+        ];
     }
 
     static replaceNbsp(string) {
@@ -117,9 +120,9 @@ class MessageNodeText extends Component{
     getStyle() {
         const { style: styleName } = this.props.params;
 
-        if ( MessageNodeText.styles.length <= 0 ) return null;
+        if ( this.styles.length <= 0 ) return null;
 
-        return MessageNodeText.styles.find( style => style.name === styleName )
+        return this.styles.find( style => style.name === styleName )
     }
 
     render() {

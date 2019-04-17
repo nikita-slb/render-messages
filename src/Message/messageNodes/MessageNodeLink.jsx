@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { inlineMarkup } from "../helpers";
 
 class MessageNodeLink extends Component{
 
-    static get styles() {
-        return []
+    constructor(props){
+        super(props);
+
+        this.styles = [];
     }
+
 
     getStyle() {
         const { format } = this.props;
         const { style: styleName } = this.props.params;
 
-        if ( MessageNodeLink.styles.length <= 0 ) return null;
+        if ( this.styles.length <= 0 ) return null;
 
-        return MessageNodeLink.styles.find(style => style.format === format && style.name === styleName )
+        return this.styles.find(style => style.format === format && style.name === styleName )
     }
 
     render() {
@@ -24,7 +28,7 @@ class MessageNodeLink extends Component{
         if (!styleObj) {
             return (
                 <>
-                    { params.inline ? " " : <br/> }
+                    { inlineMarkup(params) }
                     <a href={params.url} target="_blank" rel="noopener noreferrer" >{params.content} </a>
                 </>
             )

@@ -3,30 +3,33 @@ import PropTypes from 'prop-types';
 
 class MessageNodeParagraph extends Component{
 
-    static get styles() {
-        return []
+    constructor(props){
+        super(props);
+
+        this.styles = []
+    }
+
+    markupDefault(children) {
+        return (
+            <p>
+                { children }
+            </p>
+        )
     }
 
     getStyle() {
         const { style: styleName } = this.props.params;
 
-        if ( MessageNodeParagraph.styles.length <= 0 ) return null;
+        if ( this.styles.length <= 0 ) return null;
 
-        return MessageNodeParagraph.styles.find( style => style.name === styleName )
+        return this.styles.find( style => style.name === styleName )
     }
 
     render() {
 
         const { children } = this.props;
-        const styleObj = this.getStyle();
 
-        if (!styleObj) {
-            return (
-                <p>
-                    { children }
-                </p>
-            )
-        }
+        return this.markupDefault(children);
     }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { inlineMarkup } from '../helpers';
 
 const ACTIONS = {
     GO_ORDER: 'go_order',
@@ -9,7 +10,7 @@ const ACTIONS = {
 function markup_default(children, params, href) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <a href={href}>
                 {params.content}
                 { children }
@@ -21,7 +22,7 @@ function markup_default(children, params, href) {
 function markup_border_button(children, params, href) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-blue-no-fill" >
                 {params.content}
                 {children}
@@ -33,7 +34,7 @@ function markup_border_button(children, params, href) {
 function markup_no_border_button(children, params, href) {
     return (
         <>
-            { params.inline ? " " : <br/> }
+            { inlineMarkup(params) }
             <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-link" >
                 {params.content}
                 {children}
@@ -44,8 +45,10 @@ function markup_no_border_button(children, params, href) {
 
 class MessageNodeButton extends Component{
 
-    static get styles() {
-        return [
+    constructor(props) {
+        super(props);
+
+        this.styles = [
             {
                 name: 'border_button',
                 markup: markup_border_button
@@ -54,20 +57,14 @@ class MessageNodeButton extends Component{
                 name: 'no_border_button',
                 markup: markup_no_border_button
             }
-        ]
-    }
-
-    constructor(props) {
-        super(props);
+        ];
 
         this.href = {
             root: 'https://allput.ru',
             actionUrl: this.generateActionUrl()
-        }
-    }
+        };
 
-    get generatedHref() {
-        return this.href.actionUrl ? `${this.href.root}${this.href.actionUrl}` : '#';
+        this.generatedHref = this.href.actionUrl ? `${this.href.root}${this.href.actionUrl}` : '#';
     }
 
     generateActionUrl() {
@@ -86,9 +83,9 @@ class MessageNodeButton extends Component{
     getStyle() {
         const { style: styleName } = this.props.params;
 
-        if ( MessageNodeButton.styles.length <= 0 ) return null;
+        if ( this.styles.length <= 0 ) return null;
 
-        return MessageNodeButton.styles.find(style => style.name === styleName )
+        return this.styles.find(style => style.name === styleName )
     }
 
     render() {
