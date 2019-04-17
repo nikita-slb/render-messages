@@ -1,49 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { inlineMarkup } from '../helpers';
+import MessageNodeAbstract from './MessageNodeAbstract'
 
 const ACTIONS = {
     GO_ORDER: 'go_order',
     PLACE_NEW_ORDER: 'place_new_order'
 };
 
-function markup_default(children, params, href) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <a href={href}>
-                {params.content}
-                { children }
-            </a>
-        </>
-    )
-}
-
-function markup_border_button(children, params, href) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-blue-no-fill" >
-                {params.content}
-                {children}
-            </a>
-        </>
-    )
-}
-
-function markup_no_border_button(children, params, href) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-link" >
-                {params.content}
-                {children}
-            </a>
-        </>
-    )
-}
-
-class MessageNodeButton extends Component{
+class MessageNodeButton extends MessageNodeAbstract{
 
     constructor(props) {
         super(props);
@@ -51,11 +15,11 @@ class MessageNodeButton extends Component{
         this.styles = [
             {
                 name: 'border_button',
-                markup: markup_border_button
+                markup: this.markupBorderButton.bind(this)
             },
             {
                 name: 'no_border_button',
-                markup: markup_no_border_button
+                markup: this.markupNoBorderButton.bind(this)
             }
         ];
 
@@ -65,6 +29,51 @@ class MessageNodeButton extends Component{
         };
 
         this.generatedHref = this.href.actionUrl ? `${this.href.root}${this.href.actionUrl}` : '#';
+    }
+
+    markupDefault() {
+        const { children, params } = this.props;
+        const href = this.generatedHref;
+
+        return (
+            <>
+                { this.inlineMarkup() }
+                <a href={href}>
+                    {params.content}
+                    { children }
+                </a>
+            </>
+        )
+    }
+
+    markupBorderButton() {
+        const { children, params } = this.props;
+        const href = this.generatedHref;
+
+        return (
+            <>
+                { this.inlineMarkup() }
+                <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-blue-no-fill" >
+                    {params.content}
+                    {children}
+                </a>
+            </>
+        )
+    }
+
+    markupNoBorderButton() {
+        const { children, params } = this.props;
+        const href = this.generatedHref;
+
+        return (
+            <>
+                { this.inlineMarkup() }
+                <a href={href} target='_blank' rel="noopener noreferrer" className="btn btn-small-size btn-link" >
+                    {params.content}
+                    {children}
+                </a>
+            </>
+        )
     }
 
     generateActionUrl() {
@@ -80,25 +89,6 @@ class MessageNodeButton extends Component{
         }
     }
 
-    getStyle() {
-        const { style: styleName } = this.props.params;
-
-        if ( this.styles.length <= 0 ) return null;
-
-        return this.styles.find(style => style.name === styleName )
-    }
-
-    render() {
-
-        const { children, params } = this.props;
-        const styleObj = this.getStyle();
-
-        if (!styleObj) {
-            return markup_default(children, params, this.generatedHref)
-        } else {
-            return styleObj.markup(children, params, this.generatedHref)
-        }
-    }
 }
 
 MessageNodeButton.defaultProps = {

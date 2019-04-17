@@ -1,141 +1,123 @@
-import React, { Component } from 'react';
+import React from 'react';
+import MessageNodeAbstract from './MessageNodeAbstract'
 import PropTypes from 'prop-types';
-import { inlineMarkup } from "../helpers";
 
-function markupNormal(children, params) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <span>
-                { params.content }
-                { children }
-            </span>
-        </>
-    )
-}
-
-function markupBold(children, params) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <b>
-                {params.content}
-                {children}
-            </b>
-        </>
-    )
-}
-
-function markupOrderData(children, params) {
-
-    return (
-        <>
-            { inlineMarkup(params) }
-            <span className="text-size-12 gray">
-                { MessageNodeText.replaceNbsp(params.content) }
-                { children }
-            </span>
-        </>
-    )
-}
-
-function markupReviewNeutral(children, params) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <span className="gray">
-                { params.content }
-                { children }
-            </span>
-        </>
-    )
-}
-
-function markupReviewPositive(children, params) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <span className="green">
-                    { params.content }
-                { children }
-            </span>
-        </>
-    )
-}
-
-function markupReviewNegative(children, params) {
-    return (
-        <>
-            { inlineMarkup(params) }
-            <span className="red">
-                { params.content }
-                { children }
-            </span>
-        </>
-    )
-}
-
-class MessageNodeText extends Component{
-
+class MessageNodeText extends MessageNodeAbstract{
     constructor(props) {
         super(props);
 
         this.styles = [
             {
                 name: 'normal',
-                markup: markupNormal
+                markup: this.markupDefault.bind(this)
             },
             {
                 name: 'bold',
-                markup: markupBold
+                markup: this.markupBold.bind(this)
             },
             {
                 name: 'order_data',
-                markup: markupOrderData
+                markup: this.markupOrderData.bind(this)
             },
             {
                 name: 'review_neutral',
-                markup: markupReviewNeutral
+                markup: this.markupReviewNeutral.bind(this)
             },
             {
                 name: 'review_positive',
-                markup: markupReviewPositive
+                markup: this.markupReviewPositive.bind(this)
             },
             {
                 name: 'review_negative',
-                markup: markupReviewNegative
+                markup: this.markupReviewNegative.bind(this)
             }
         ];
     }
 
-    static replaceNbsp(string) {
-        const length = string.split("&nbsp;").length;
-        let newStr = string;
-        for(let i = 0; i < length; ++i){
-            newStr = newStr.replace('&nbsp;', '\u00a0');
-        }
-        return newStr;
-    }
-
-    getStyle() {
-        const { style: styleName } = this.props.params;
-
-        if ( this.styles.length <= 0 ) return null;
-
-        return this.styles.find( style => style.name === styleName )
-    }
-
-    render() {
-
+    markupDefault() {
         const { children, params } = this.props;
-        const styleObj = this.getStyle();
 
-        if (!styleObj) {
-            return markupNormal(children, params);
-        } else {
-            return styleObj.markup(children, this.props.params)
-        }
+        return (
+            <>
+                { this.inlineMarkup() }
+                <span>
+                    { params.content }
+                    { children }
+                </span>
+            </>
+        )
     }
+
+     markupBold() {
+         const { children, params } = this.props;
+
+         return (
+            <>
+                { this.inlineMarkup() }
+                <b>
+                    {params.content}
+                    {children}
+                </b>
+            </>
+        )
+    }
+
+     markupOrderData() {
+        const { children, params } = this.props;
+
+        return (
+            <>
+                { this.inlineMarkup() }
+                <span className="text-size-12 gray">
+                    { MessageNodeText.replaceNbsp(params.content) }
+                    { children }
+                </span>
+            </>
+        )
+    }
+
+     markupReviewNeutral() {
+         const { children, params } = this.props;
+
+         return (
+            <>
+                { this.inlineMarkup() }
+                <span className="gray">
+                    { params.content }
+                    { children }
+                </span>
+            </>
+        )
+    }
+
+     markupReviewPositive() {
+         const { children, params } = this.props;
+
+         return (
+            <>
+                { this.inlineMarkup() }
+                <span className="green">
+                    { params.content }
+                    { children }
+                </span>
+            </>
+        )
+    }
+
+     markupReviewNegative() {
+         const { children, params } = this.props;
+
+         return (
+            <>
+                { this.inlineMarkup() }
+                <span className="red">
+                    { params.content }
+                    { children }
+                </span>
+            </>
+        )
+    }
+
 }
 
 MessageNodeText.defaultProps = {

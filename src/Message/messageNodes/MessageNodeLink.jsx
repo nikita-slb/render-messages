@@ -1,41 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { inlineMarkup } from "../helpers";
+import MessageNodeAbstract from './MessageNodeAbstract'
 
-class MessageNodeLink extends Component{
+class MessageNodeLink extends MessageNodeAbstract{
 
-    constructor(props){
-        super(props);
-
-        this.styles = [];
+    markupDefault() {
+        const { params, children } = this.props;
+        return (
+            <>
+                { this.inlineMarkup() }
+                <a href={params.url} target="_blank" rel="noopener noreferrer" >
+                    {params.content}
+                    {children}
+                </a>
+            </>
+        )
     }
 
 
-    getStyle() {
-        const { format } = this.props;
-        const { style: styleName } = this.props.params;
-
-        if ( this.styles.length <= 0 ) return null;
-
-        return this.styles.find(style => style.format === format && style.name === styleName )
-    }
-
-    render() {
-
-        const { children, params } = this.props;
-        const styleObj = this.getStyle();
-
-        if (!styleObj) {
-            return (
-                <>
-                    { inlineMarkup(params) }
-                    <a href={params.url} target="_blank" rel="noopener noreferrer" >{params.content} </a>
-                </>
-            )
-        } else {
-            return styleObj.markup(children, params)
-        }
-    }
 }
 
 MessageNodeLink.defaultProps = {

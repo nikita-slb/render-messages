@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import MessageNodeAbstract from './MessageNodeAbstract'
 
-class MessageNodeParagraph extends Component{
+class MessageNodeParagraph extends MessageNodeAbstract{
 
-    constructor(props){
-        super(props);
-
-        this.styles = []
-    }
-
-    markupDefault(children) {
+    markupDefault() {
+        const { children } = this.props;
         return (
             <p>
                 { children }
@@ -17,20 +13,6 @@ class MessageNodeParagraph extends Component{
         )
     }
 
-    getStyle() {
-        const { style: styleName } = this.props.params;
-
-        if ( this.styles.length <= 0 ) return null;
-
-        return this.styles.find( style => style.name === styleName )
-    }
-
-    render() {
-
-        const { children } = this.props;
-
-        return this.markupDefault(children);
-    }
 }
 
 MessageNodeParagraph.defaultProps = {
