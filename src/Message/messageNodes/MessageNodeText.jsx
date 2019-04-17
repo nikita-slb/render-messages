@@ -2,6 +2,10 @@ import React from 'react';
 import MessageNodeAbstract from './MessageNodeAbstract'
 import PropTypes from 'prop-types';
 
+/**
+ * MessageNodeText - класс-наследник MessageNodeAbstract.
+ * Предназначен для рендера кнопок (type: "text")
+ */
 class MessageNodeText extends MessageNodeAbstract{
     constructor(props) {
         super(props);
@@ -34,6 +38,10 @@ class MessageNodeText extends MessageNodeAbstract{
         ];
     }
 
+    /**
+     * Метод, возвращающий разметку по-умолчанию для узла
+     * @returns {JSX-выражение}
+     */
     markupDefault() {
         const { children, params } = this.props;
 
@@ -48,6 +56,10 @@ class MessageNodeText extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
      markupBold() {
          const { children, params } = this.props;
 
@@ -62,6 +74,10 @@ class MessageNodeText extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
      markupOrderData() {
         const { children, params } = this.props;
 
@@ -76,6 +92,10 @@ class MessageNodeText extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
      markupReviewNeutral() {
          const { children, params } = this.props;
 
@@ -90,6 +110,10 @@ class MessageNodeText extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
      markupReviewPositive() {
          const { children, params } = this.props;
 
@@ -104,6 +128,10 @@ class MessageNodeText extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
      markupReviewNegative() {
          const { children, params } = this.props;
 
@@ -120,17 +148,19 @@ class MessageNodeText extends MessageNodeAbstract{
 
 }
 
+MessageNodeText.displayName = 'MessageNodeText';
+
 MessageNodeText.defaultProps = {
     children: null
 };
 
 MessageNodeText.propTypes = {
-    params: PropTypes.shape({
-        style: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        inline: PropTypes.bool.isRequired
+    params: PropTypes.shape({ // Параметры узла
+        style: PropTypes.string.isRequired, //Стилевая константа
+        content: PropTypes.string.isRequired, //Контент
+        inline: PropTypes.bool.isRequired //Инлайн-флаг
     }),
-    children: PropTypes.array
+    children: PropTypes.array //Массив потомков
 };
 
 export default MessageNodeText;

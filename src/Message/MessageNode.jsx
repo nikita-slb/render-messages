@@ -14,6 +14,9 @@ const TYPES = {
     BUTTON: 'button'
 };
 
+/**
+ * MessageNode - рендер узла соответствующего типа
+ */
 class MessageNode extends Component {
 
     getNodeChildren() {
@@ -45,8 +48,10 @@ class MessageNode extends Component {
     }
 }
 
+MessageNode.displayName = 'MessageNode';
+
 MessageNode.propTypes = {
-    nodeData: PropTypes.object.isRequired,
+    nodeData: PropTypes.object.isRequired, // данные узла
 };
 
 export default MessageNode;

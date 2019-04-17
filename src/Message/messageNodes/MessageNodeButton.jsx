@@ -7,6 +7,14 @@ const ACTIONS = {
     PLACE_NEW_ORDER: 'place_new_order'
 };
 
+const ROOT = {
+    URL: 'https://allput.ru'
+};
+
+/**
+ * MessageNodeButton - класс-наследник MessageNodeAbstract.
+ * Предназначен для рендера кнопок (type: "button")
+ */
 class MessageNodeButton extends MessageNodeAbstract{
 
     constructor(props) {
@@ -24,13 +32,17 @@ class MessageNodeButton extends MessageNodeAbstract{
         ];
 
         this.href = {
-            root: 'https://allput.ru',
+            root: ROOT.URL,
             actionUrl: this.generateActionUrl()
         };
 
         this.generatedHref = this.href.actionUrl ? `${this.href.root}${this.href.actionUrl}` : '#';
     }
 
+    /**
+     *  Метод, возвращающий разметку по-умолчанию для узла
+     * @returns {JSX-выражение}
+     */
     markupDefault() {
         const { children, params } = this.props;
         const href = this.generatedHref;
@@ -46,6 +58,10 @@ class MessageNodeButton extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
     markupBorderButton() {
         const { children, params } = this.props;
         const href = this.generatedHref;
@@ -61,6 +77,10 @@ class MessageNodeButton extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * Метод, возвращающий разметку для узла
+     * @returns {JSX-выражение}
+     */
     markupNoBorderButton() {
         const { children, params } = this.props;
         const href = this.generatedHref;
@@ -76,6 +96,10 @@ class MessageNodeButton extends MessageNodeAbstract{
         )
     }
 
+    /**
+     * генерация url в соответствии с action
+     * @returns {string || null}
+     */
     generateActionUrl() {
         const { action, id } = this.props.params;
 
@@ -91,19 +115,21 @@ class MessageNodeButton extends MessageNodeAbstract{
 
 }
 
+MessageNodeButton.displayName = 'MessageNodeButton';
+
 MessageNodeButton.defaultProps = {
     children: null,
 };
 
 MessageNodeButton.propTypes = {
-    params: PropTypes.shape({
-        style: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        inline: PropTypes.bool.isRequired,
-        action: PropTypes.string.isRequired,
-        id: PropTypes.number
+    params: PropTypes.shape({ // Параметры узла
+        style: PropTypes.string.isRequired, //Стилевая константа
+        content: PropTypes.string.isRequired, //Контент
+        inline: PropTypes.bool.isRequired, //Инлайн-флаг
+        action: PropTypes.string.isRequired, //Константа действия
+        id: PropTypes.number //Id сущности для выполнения action
     }),
-    children: PropTypes.array
+    children: PropTypes.array //Массив потомков
 };
 
 export default MessageNodeButton;

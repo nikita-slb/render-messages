@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import MessageNode from './MessageNode.jsx'
 
+/**
+ * Message
+ */
 class Message extends Component {
 
     constructor(props) {
@@ -28,8 +31,10 @@ class Message extends Component {
     }
 }
 
+Message.displayName = 'Message';
+
 Message.propTypes = {
-    message: PropTypes.object.isRequired,
+    message: PropTypes.object.isRequired, // Объект с данными по сообщению
 };
 
 export default Message
