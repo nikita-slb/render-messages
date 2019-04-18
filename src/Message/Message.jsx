@@ -11,7 +11,6 @@ class Message extends Component {
         super(props);
 
         this.messageData = JSON.parse(props.message.mobile_message);
-        console.log(this.messageData);
     }
 
     render() {
