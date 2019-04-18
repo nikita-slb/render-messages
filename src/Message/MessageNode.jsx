@@ -19,6 +19,10 @@ const TYPES = {
  */
 class MessageNode extends Component {
 
+    /**
+     * рендерит дочерние узлы при наличии
+     * @returns {jsx-элемент || null}
+     */
     getNodeChildren() {
         const { children } = this.props.nodeData;
 
